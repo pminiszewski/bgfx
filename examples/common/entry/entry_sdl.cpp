@@ -565,9 +565,16 @@ namespace entry
 					case SDL_MOUSEMOTION:
 						{
 							const SDL_MouseMotionEvent& mev = event.motion;
-							m_mx = mev.x;
-							m_my = mev.y;
-
+							if(m_mouseLock)
+							{
+								m_mx = mev.xrel;
+								m_my = mev.yrel;
+							}
+							else
+							{
+								m_mx = mev.x;
+								m_my = mev.y;
+							}
 							WindowHandle handle = findHandle(mev.windowID);
 							if (isValid(handle) )
 							{
@@ -971,6 +978,7 @@ namespace entry
 							case SDL_USER_WINDOW_MOUSE_LOCK:
 								{
 									SDL_SetRelativeMouseMode(!!uev.code ? SDL_TRUE : SDL_FALSE);
+									m_mouseLock = !!uev.code? true : false;
 								}
 								break;
 

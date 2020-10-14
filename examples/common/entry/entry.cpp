@@ -702,11 +702,15 @@ restart:
 						const MouseEvent* mouse = static_cast<const MouseEvent*>(ev);
 						handle = mouse->m_handle;
 
-						inputSetMousePos(mouse->m_mx, mouse->m_my, mouse->m_mz);
 						if (!mouse->m_move)
 						{
 							inputSetMouseButtonState(mouse->m_button, mouse->m_down);
 						}
+						else
+						{
+							inputSetMousePos(mouse->m_mx, mouse->m_my, mouse->m_mz);
+						}
+
 
 						if (NULL != _mouse
 						&&  !mouseLock)
