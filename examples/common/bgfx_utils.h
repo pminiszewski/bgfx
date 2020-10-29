@@ -14,8 +14,10 @@
 #include <tinystl/allocator.h>
 #include <tinystl/vector.h>
 namespace stl = tinystl;
-
-
+namespace bx
+{
+	struct FileReaderI;
+}
 ///
 void* load(const char* _filePath, uint32_t* _size = NULL);
 
@@ -29,6 +31,7 @@ bgfx::ShaderHandle loadShader(const char* _name);
 bgfx::ProgramHandle loadProgram(const char* _vsName, const char* _fsName);
 
 ///
+bgfx::TextureHandle loadTexture(bx::FileReaderI* _reader, const char* _filePath, uint64_t _flags = BGFX_TEXTURE_NONE|BGFX_SAMPLER_NONE, uint8_t _skip = 0, bgfx::TextureInfo* _info = NULL, bimg::Orientation::Enum* _orientation = NULL);
 bgfx::TextureHandle loadTexture(const char* _name, uint64_t _flags = BGFX_TEXTURE_NONE|BGFX_SAMPLER_NONE, uint8_t _skip = 0, bgfx::TextureInfo* _info = NULL, bimg::Orientation::Enum* _orientation = NULL);
 
 ///
@@ -90,7 +93,7 @@ struct Primitive
 	uint32_t m_numIndices;
 	uint32_t m_startVertex;
 	uint32_t m_numVertices;
-	
+
 	Sphere m_sphere;
 	Aabb m_aabb;
 	Obb m_obb;
@@ -102,7 +105,7 @@ struct Group
 {
 	Group();
 	void reset();
-	
+
 	bgfx::VertexBufferHandle m_vbh;
 	bgfx::IndexBufferHandle m_ibh;
 	uint16_t m_numVertices;
